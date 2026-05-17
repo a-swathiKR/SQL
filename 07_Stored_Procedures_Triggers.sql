@@ -1,12 +1,4 @@
--- ============================================================
---  07_Stored_Procedures_Triggers.sql  (PostgreSQL syntax)
--- ============================================================
 
--- ════════════════════════════════════════════════════════════
---  STORED PROCEDURES
---  Named, reusable blocks of SQL logic stored in the database.
---  Called with CALL proc_name(...).
--- ════════════════════════════════════════════════════════════
 
 -- 1. Simple procedure – give a raise to all employees in a department
 CREATE OR REPLACE PROCEDURE sp_give_raise(
@@ -84,11 +76,7 @@ CALL sp_add_employee(201, 'Lakshmi Varma', 1, 68000, 'Palakkad');
 CALL sp_add_employee(101, 'Duplicate Test', 2, 50000, 'Kochi');  -- will warn
 
 
--- ════════════════════════════════════════════════════════════
---  TRIGGERS
---  Auto-execute a function BEFORE or AFTER a table event
---  (INSERT / UPDATE / DELETE).
--- ════════════════════════════════════════════════════════════
+
 
 -- 4. Audit log table to record salary changes
 CREATE TABLE IF NOT EXISTS salary_audit (
@@ -165,10 +153,4 @@ BEFORE DELETE ON employees
 FOR EACH ROW
 EXECUTE FUNCTION fn_block_delete_high_earner();
 
--- Test: try deleting a high-earning employee (will raise exception)
--- DELETE FROM employees WHERE emp_id = 107;
 
--- Drop triggers when done testing
--- DROP TRIGGER IF EXISTS trg_salary_audit       ON employees;
--- DROP TRIGGER IF EXISTS trg_format_name        ON employees;
--- DROP TRIGGER IF EXISTS trg_protect_high_earner ON employees;
