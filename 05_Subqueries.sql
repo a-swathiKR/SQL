@@ -1,9 +1,4 @@
--- ============================================================
---  05_Subqueries.sql  |  Scalar, Row, Table, Correlated, EXISTS, CTE
--- ============================================================
-
--- ─── SCALAR SUBQUERY ──────────────────────────────────────
--- Returns a single value; used in SELECT or WHERE.
+--Subqueries--
 
 -- 1. Employees earning above the company average
 SELECT name, salary
@@ -30,7 +25,7 @@ FROM (
 ) AS dept_summary
 WHERE dept_summary.avg_sal > 60000;
 
--- ─── SUBQUERY WITH IN ─────────────────────────────────────
+
 
 -- 4. Employees who work in departments with 'ing' in the name
 SELECT name, dept_id
@@ -50,8 +45,8 @@ WHERE dept_id NOT IN (
     WHERE dept_name IN ('Engineering', 'Finance')
 );
 
--- ─── CORRELATED SUBQUERY ──────────────────────────────────
--- Refers to the outer query; runs once per row.
+-- CORRELATED SUBQUERY --
+
 
 -- 6. Employees earning more than the average of their OWN department
 SELECT e.name, e.dept_id, e.salary
@@ -71,8 +66,7 @@ WHERE e.salary = (
     WHERE inner_e.dept_id = e.dept_id
 );
 
--- ─── EXISTS / NOT EXISTS ──────────────────────────────────
--- Checks whether the subquery returns any rows (TRUE/FALSE).
+--Exists / Not Exists--
 
 -- 8. Departments that HAVE at least one employee
 SELECT dept_name
@@ -88,8 +82,7 @@ WHERE NOT EXISTS (
     SELECT 1 FROM employees e WHERE e.dept_id = d.dept_id
 );
 
--- ─── CTE (Common Table Expression) ───────────────────────
--- Named, readable subquery using WITH. Cleaner than nested subqueries.
+--CTE--
 
 -- 10. Using a CTE to find above-average earners
 WITH avg_salary AS (
