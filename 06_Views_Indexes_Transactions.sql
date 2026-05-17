@@ -1,13 +1,4 @@
--- ============================================================
---  06_Views_Indexes_Transactions.sql
--- ============================================================
-
--- ════════════════════════════════════════════════════════════
---  VIEWS
---  A saved SELECT query treated like a virtual table.
---  Data is always live (reflects latest underlying data).
--- ════════════════════════════════════════════════════════════
-
+--Views--
 -- 1. Simple view – employee details with department name
 CREATE OR REPLACE VIEW vw_employee_details AS
 SELECT e.emp_id,
@@ -46,12 +37,8 @@ SELECT * FROM vw_top_earners;
 -- 4. Drop a view
 DROP VIEW IF EXISTS vw_top_earners;
 
+--Indexes--
 
--- ════════════════════════════════════════════════════════════
---  INDEXES
---  Speed up SELECT queries on frequently searched columns.
---  Trade-off: faster reads, slightly slower writes.
--- ════════════════════════════════════════════════════════════
 
 -- 5. Single-column index on city (we filter by city often)
 CREATE INDEX IF NOT EXISTS idx_emp_city
@@ -77,20 +64,8 @@ WHERE tablename = 'employees';
 -- 10. Drop an index
 DROP INDEX IF EXISTS idx_emp_city;
 
+--Transactions--
 
--- ════════════════════════════════════════════════════════════
---  TRANSACTIONS
---  Group multiple statements into one atomic unit.
---  Either ALL succeed (COMMIT) or ALL are undone (ROLLBACK).
--- ════════════════════════════════════════════════════════════
-
--- ACID properties:
---   Atomicity   – all or nothing
---   Consistency – database stays valid
---   Isolation   – transactions don't interfere mid-flight
---   Durability  – committed data survives crashes
-
--- 11. Basic transaction – salary transfer between employees
 BEGIN;
 
     UPDATE employees SET salary = salary - 5000 WHERE emp_id = 101;
