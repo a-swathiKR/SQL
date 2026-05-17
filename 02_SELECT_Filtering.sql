@@ -1,6 +1,4 @@
--- ============================================================
---  02_SELECT_Filtering.sql  |  WHERE, LIKE, IN, BETWEEN, ORDER BY, LIMIT
--- ============================================================
+
 
 -- 1. Select all columns
 SELECT * FROM employees;
@@ -42,9 +40,7 @@ SELECT name, dept_id
 FROM employees
 WHERE dept_id NOT IN (2, 4);
 
--- 9. LIKE – pattern matching
---    %  = any sequence of characters
---    _  = exactly one character
+
 
 SELECT name FROM employees WHERE name LIKE 'A%';       -- starts with A
 SELECT name FROM employees WHERE name LIKE '%Nair';    -- ends with Nair
