@@ -1,7 +1,4 @@
--- ============================================================
---  01_DML.sql  |  INSERT, UPDATE, DELETE
---  Dataset: employees & departments
--- ============================================================
+
 
 -- Create supporting tables (run once to set up the demo schema)
 CREATE TABLE IF NOT EXISTS departments (
@@ -18,7 +15,6 @@ CREATE TABLE IF NOT EXISTS employees (
     city       VARCHAR(50)
 );
 
--- ─── INSERT ───────────────────────────────────────────────
 
 -- 1. Insert single row
 INSERT INTO departments (dept_id, dept_name)
@@ -41,7 +37,7 @@ INSERT INTO employees (emp_id, name, dept_id, salary, hire_date, city) VALUES
     (107, 'Vishnu Prasad',   1, 91000.00, '2018-04-12', 'Thrissur'),
     (108, 'Divya Krishnan',  3, 45000.00, '2023-06-01', 'Kannur');
 
--- ─── UPDATE ───────────────────────────────────────────────
+
 
 -- 4. Give a 10% raise to all Engineering employees
 UPDATE employees
@@ -59,14 +55,14 @@ SET salary   = 70000.00,
     city     = 'Kochi'
 WHERE emp_id = 104;
 
--- ─── DELETE ───────────────────────────────────────────────
+
 
 -- 7. Delete a specific employee
 DELETE FROM employees
 WHERE emp_id = 108;
 
--- 8. Delete all employees from a department (careful!)
--- DELETE FROM employees WHERE dept_id = 3;
+-- 8. Delete all employees from a department 
+DELETE FROM employees WHERE dept_id = 3;
 
 -- 9. Safe pattern: delete using a subquery
 DELETE FROM employees
