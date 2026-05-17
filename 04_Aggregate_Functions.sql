@@ -1,8 +1,4 @@
--- ============================================================
---  04_Aggregate_Functions.sql  |  COUNT, SUM, AVG, MIN, MAX, GROUP BY, HAVING
--- ============================================================
-
--- ─── BASIC AGGREGATES ─────────────────────────────────────
+--AGGREGATE FUNCTIONS--
 
 -- 1. Total number of employees
 SELECT COUNT(*) AS total_employees
@@ -30,8 +26,7 @@ FROM employees;
 SELECT MAX(salary) - MIN(salary) AS salary_range
 FROM employees;
 
--- ─── GROUP BY ─────────────────────────────────────────────
--- Aggregate per category.
+
 
 -- 7. Headcount per department
 SELECT d.dept_name,
@@ -63,8 +58,6 @@ JOIN departments d ON e.dept_id = d.dept_id
 GROUP BY d.dept_name, e.city
 ORDER BY d.dept_name, e.city;
 
--- ─── HAVING ───────────────────────────────────────────────
--- Filter AFTER aggregation (WHERE filters before aggregation).
 
 -- 11. Departments with more than 1 employee
 SELECT d.dept_name, COUNT(*) AS headcount
@@ -88,23 +81,22 @@ GROUP BY city
 HAVING SUM(salary) > 100000
 ORDER BY total_cost DESC;
 
--- ─── WHERE vs HAVING (side-by-side) ──────────────────────
 
--- WHERE  → filter rows BEFORE grouping
+
+
 SELECT d.dept_name, AVG(e.salary) AS avg_sal
 FROM employees e
 JOIN departments d ON e.dept_id = d.dept_id
 WHERE e.city = 'Palakkad'          -- only Palakkad employees
 GROUP BY d.dept_name;
 
--- HAVING → filter groups AFTER grouping
 SELECT d.dept_name, AVG(e.salary) AS avg_sal
 FROM employees e
 JOIN departments d ON e.dept_id = d.dept_id
 GROUP BY d.dept_name
 HAVING AVG(e.salary) > 60000;     -- only high-paying depts
 
--- ─── COUNT DISTINCT ───────────────────────────────────────
+
 
 -- 14. How many unique cities do employees come from?
 SELECT COUNT(DISTINCT city) AS unique_cities
